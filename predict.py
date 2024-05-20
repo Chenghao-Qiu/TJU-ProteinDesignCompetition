@@ -19,7 +19,7 @@ pretrained_model_generator, input_encoder = load_pretrained_model()
 model = keras.models.load_model('./saved_model')
 
 # 编码测试集序列
-X_test_encoded = input_encoder.encode_X(test_set['Full Sequence'].values, seq_len=240)
+X_test_encoded = input_encoder.encode_X(test_set['Full Sequence'].values, seq_len=241)
 
 # 使用模型进行预测
 predictions = model.predict(X_test_encoded, batch_size=32).flatten()

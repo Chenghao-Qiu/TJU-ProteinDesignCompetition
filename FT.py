@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 BENCHMARKS_DIR = './data'
-DATASET_NAME = 'test'
+DATASET_NAME = 'GFP_data_with_full_sequences'
 
 OUTPUT_TYPE = OutputType(False, 'numeric')
 OUTPUT_SPEC = OutputSpec(OUTPUT_TYPE, None)
@@ -25,7 +25,7 @@ print(f'{len(train_set)} training set records, {len(valid_set)} validation set r
 pretrained_model_generator, input_encoder = load_pretrained_model()
 model_generator = FinetuningModelGenerator(pretrained_model_generator, OUTPUT_SPEC, dropout_rate=0.5)
 
-X_val_encoded = input_encoder.encode_X(valid_set['Full Sequence'].values, seq_len=240)
+X_val_encoded = input_encoder.encode_X(valid_set['Full Sequence'].values, seq_len=241)
 y_val = valid_set['Brightness'].values
 
 class PerformanceCallback(keras.callbacks.Callback):
@@ -103,14 +103,14 @@ finetuned_model = finetune(
     train_set['Brightness'],
     valid_set['Full Sequence'],
     valid_set['Brightness'],
-    seq_len=240,
+    seq_len=241,
     batch_size=32,
-    max_epochs_per_stage=10,
+    max_epochs_per_stage=2,
     lr=1e-04,
     begin_with_frozen_pretrained_layers=True,
     lr_with_frozen_pretrained_layers=1e-02,
-    n_final_epochs=5,
-    final_seq_len=240,
+    n_final_epochs=1,
+    final_seq_len=241,
     final_lr=1e-05,
     callbacks=training_callbacks
 )
