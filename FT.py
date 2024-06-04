@@ -47,7 +47,7 @@ class PerformanceCallback(keras.callbacks.Callback):
             f.write(f'New Training Session\n{"="*20}\n')
 
     def on_epoch_end(self, epoch, logs=None):
-        y_pred = self.model.predict(self.X_val, batch_size=32).flatten()
+        y_pred = self.model.predict(self.X_val, batch_size=128).flatten()
         mse = mean_squared_error(self.y_val, y_pred)
         mae = mean_absolute_error(self.y_val, y_pred)
         self.mse.append(mse)
@@ -91,7 +91,7 @@ class PerformanceCallback(keras.callbacks.Callback):
 
 training_callbacks = [
     keras.callbacks.ReduceLROnPlateau(patience=1, factor=0.25, min_lr=1e-05, verbose=1),
-    keras.callbacks.EarlyStopping(patience=2, restore_best_weights=True),
+    keras.callbacks.EarlyStopping(patience=5, restore_best_weights=True),
     PerformanceCallback(X_val_encoded, y_val)
 ]
 
@@ -104,12 +104,12 @@ finetuned_model = finetune(
     valid_set['Full Sequence'],
     valid_set['Brightness'],
     seq_len=241,
-    batch_size=32,
-    max_epochs_per_stage=2,
+    batch_size=128,
+    max_epochs_per_stage=75,
     lr=1e-04,
     begin_with_frozen_pretrained_layers=True,
     lr_with_frozen_pretrained_layers=1e-02,
-    n_final_epochs=1,
+    n_final_epochs=10,
     final_seq_len=241,
     final_lr=1e-05,
     callbacks=training_callbacks

@@ -6,7 +6,7 @@ from proteinbert import load_pretrained_model, InputEncoder
 # 指定数据集的路径和名称
 PREDICTION_DIR = './predict/predict_data'
 PREDICTION_RESULT_DIR = './predict/predict_result'
-DATASET_NAME = 'seq'
+DATASET_NAME = 'four'
 
 # 加载数据集
 test_set_file_path = os.path.join(PREDICTION_DIR, f'{DATASET_NAME}.predict.csv')
@@ -35,6 +35,6 @@ results_df = pd.DataFrame({
 })
 
 # 将结果保存到CSV文件
-results_df.to_csv(os.path.join(PREDICTION_RESULT_DIR, 'predictions.csv'), index=False)
+results_df.to_csv(os.path.join(PREDICTION_RESULT_DIR, f'{DATASET_NAME}.predictions.csv'), index=False)
 
-print(f'预测结果已保存到 {os.path.join(PREDICTION_RESULT_DIR, "predictions.csv")}')
+print(f'预测结果已保存到 {os.path.join(PREDICTION_RESULT_DIR, DATASET_NAME + "predictions.csv")}')
