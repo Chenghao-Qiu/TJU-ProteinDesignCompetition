@@ -6,7 +6,7 @@ from proteinbert import load_pretrained_model, InputEncoder
 # 指定数据集的路径和名称
 PREDICTION_DIR = './predict/predict_data'
 PREDICTION_RESULT_DIR = './predict/predict_result'
-DATASET_NAME = 'seq'
+DATASET_NAME = 'mutations_5'
 
 # 加载数据集
 test_set_file_path = os.path.join(PREDICTION_DIR, f'{DATASET_NAME}.predict.csv')
